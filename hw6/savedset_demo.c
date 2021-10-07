@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include "../common.h"
+#include "common.h"
 
 #define SHOW_CREDS() do {		\
   printf("RUID=%d EUID=%d\n"		\

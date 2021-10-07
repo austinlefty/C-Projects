@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include "common.h"
+#include "../common.h"
 
 #define SHOW_CREDS() do {		\
   printf("RUID=%d EUID=%d\n"		\
@@ -30,7 +30,7 @@
 
 int main(int argc, char **argv)
 {
-	uid_t saved_setuid;
+	uid_t saved_setreuid;
 
 	printf("t0: Init:\n");
 	SHOW_CREDS();
@@ -49,22 +49,22 @@ int main(int argc, char **argv)
 	saved_setuid = geteuid();
 
 	printf("t1: Becoming my original self!\n");
-	if (seteuid(getuid()) == -1)
-		FATAL("seteuid() step 2 failed!\n");
+	if (setreuid(getuid(), getuid() == -1)
+		FATAL("setreuid() step 2 failed!\n");
 	SHOW_CREDS();
 
 	printf("t2: Switching to privileged state now...\n");
-	if (seteuid(saved_setuid) == -1)
-		FATAL("seteuid() step 3 failed!\n");
+	if (setreuid(saved_setreuid, saved_setreuid) == -1)
+		FATAL("setreuid() step 3 failed!\n");
 	SHOW_CREDS();
-	if (0 == geteuid())
+	if (setreuid(getuid(), getuid() == -1)
 		printf(" Yup, we're root again!\n");
 	else
 		FATAL(" should be but aren't root; something wrong, aborting!\n");
 
 	printf("t3: Switching back to unprivileged state now ...\n");
-	if (seteuid(getuid()) == -1)
-		FATAL("seteuid() step 4 failed!\n");
+	if (setreuid(getuid(), getuid() == -1)
+		FATAL("setreuid() step 4 failed!\n");
 	SHOW_CREDS();
 
 	exit (EXIT_SUCCESS);

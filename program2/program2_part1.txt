@@ -1,1 +1,46 @@
+Austin Krause - Assignment 2: Part 1
 
+- What is the host name?
+Entry: cat /proc/sys/kernel/hostname
+Output: austin-ubuntu
+
+- What is the CPU type and model?
+Entry: cat /proc/cpuinfo
+Output: 
+	Model: 141
+	Model Name:11th Gen Intel(R) Core(TM) i5-11260H @ 2.60GHz
+
+- What version of the Linux kernel is being used?
+Entry: cat /proc/version
+Output: Linux version 5.11.0-34g-generic
+
+- How long (in days, hours, and minutes) has it been since the system was last booted?
+Entry: procinfo | grep Bootup
+Output: Bootup: Tue Oct 12 09:38:47 2021   Load average: 0.01 0.04 0.00 1/461 3145
+(Another entry I found was "cat /proc/uptime, but that gives the last time the machine
+ was booted in seconds.)
+
+- How much of the total CPU time has been spend executing in user mode, system mode and idle?
+Entry: cat /pro/stat
+Output: cpu 3178 640 2274 588674 435 0 248 0 0 0
+(User Mode: 3178 USER_HZ, System Mode: 2274 USER_HZ, Idle Task: 588674 USER_HZ)
+
+- How much memory is configured for it?
+Entry: cat /proc/meminfo
+Output: MemTotal: 6094304 kB
+
+- How much memory is currently available on it?
+Entry: cat /proc/meminfo
+Output: MemAvailable: 5016060 kB
+
+- How many disk read/write requests have been made?
+Entry: cat /proc/$$/io
+Output:
+	rchar: 164084
+	wchar: 4866
+
+- How many context switches has the kernel performed?
+Entry: cat /proc/$$/status
+Output:
+	voluntary_ctxt_switches: 55
+	nonvoluntary_ctxt_switches: 10

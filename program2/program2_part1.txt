@@ -5,10 +5,12 @@ Entry: cat /proc/sys/kernel/hostname
 Output: austin-ubuntu
 
 - What is the CPU type and model?
-Entry: cat /proc/cpuinfo
+Entry: 
+	cat /proc/cpuinfo | grep -m1 model
+	cat /proc/cpuinfo | grep -m1 name
 Output: 
-	Model: 141
-	Model Name:11th Gen Intel(R) Core(TM) i5-11260H @ 2.60GHz
+	model: 141
+	model name: 11th Gen Intel(R) Core(TM) i5-11260H @ 2.60GHz
 
 - What version of the Linux kernel is being used?
 Entry: cat /proc/version
@@ -21,26 +23,34 @@ Output: Bootup: Tue Oct 12 09:38:47 2021   Load average: 0.01 0.04 0.00 1/461 31
  was booted in seconds.)
 
 - How much of the total CPU time has been spend executing in user mode, system mode and idle?
-Entry: cat /pro/stat
+Entry: cat /proc/stat | grep -m1 cpu
 Output: cpu 3178 640 2274 588674 435 0 248 0 0 0
 (User Mode: 3178 USER_HZ, System Mode: 2274 USER_HZ, Idle Task: 588674 USER_HZ)
 
 - How much memory is configured for it?
-Entry: cat /proc/meminfo
+Entry: cat /proc/meminfo | grep -m1 MemTotal
 Output: MemTotal: 6094304 kB
 
 - How much memory is currently available on it?
-Entry: cat /proc/meminfo
+Entry: cat /proc/meminfo | grep -m1 MemAvailable
 Output: MemAvailable: 5016060 kB
 
 - How many disk read/write requests have been made?
-Entry: cat /proc/$$/io
+Entry: 
+	cat /proc/$$/io | grep -m1 rchar
+	cat /proc/$$/io | grep -m1 wchar
 Output:
 	rchar: 164084
 	wchar: 4866
 
 - How many context switches has the kernel performed?
-Entry: cat /proc/$$/status
+Entry: 
+	cat /proc/$$/status | grep -m1 voluntary_ctxt_switches
+	cat /proc/$$/status | grep -m1 nonvoluntary_ctxt_switches
 Output:
 	voluntary_ctxt_switches: 55
 	nonvoluntary_ctxt_switches: 10
+
+- How many processes have been created sine the system was booted?
+Entry: cat /proc/stat | grep -m1 processes
+Output: processes 6551
